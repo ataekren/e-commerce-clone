@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Elektronik",
+    "submenu": ["Telefon", "Bilgisayar", "Tablet", "Aksesuar", "TV"]
+  },
+  {
+    "title": "Moda",
+    "submenu": ["Kadın", "Erkek", "Çocuk", "Bebek"]
+  },
+  {
+    "title": "Ev, Yaşam, Kırtasiye, Ofis",
+    "submenu": ["Kırtasiye Ürünleri", "Ofis Makineleri", "Fotokopi Kağıdı", "Lampa", "Mutfak"]
+  },
+  {
+    "title": "Spor, Outdoor",
+    "submenu": ["Futbol", "Basketbol", "Voleybol", "Tenis", "Hentbol"]
+  },
+  {
+    "title": "Kozmetik, Kişisel Bakım",
+    "submenu": ["Parfüm", "Saç Bakımı", "Cilt Bakımı", "Makyaj", "Erkek Bakım"]
+  },
+  {
+    "title": "Kitap, Müzik, Film, Hobi",
+    "submenu": ["Roman", "Bilim Kurgu", "Korku/Gerilim", "Çocuk Kitapları", "Müzik Enstrümanları", "Filmler", "Puzzle"]
+  },
+  {
+    "title": "Oyuncak, Anne & Bebek",
+    "submenu": ["Bebek Bezi", "Mama", "Bebek Arabası", "Peluş Oyuncaklar", "Eğitici Oyuncaklar", "Lego"]
+  }
+]
