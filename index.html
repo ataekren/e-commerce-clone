@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Ticaret - Ata Ekren</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      padding-top: 5px;
+    }
+    .sticky-menu {
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+      background-color: white;
+    }
+    .quick-link-card {
+      background-color: rgb(255, 166, 0);
+      color: rgb(0, 0, 0);
+      text-align: center;
+      border-radius: 10px;
+      margin: 5px 2px;
+      padding: 10px 5px;
+      width: 120px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column; 
+      justify-content: space-between;
+      font-size: 1.2em;
+      font-weight: bold;
+      position: relative;
+    }
+    .quick-link-card .label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: black;
+      color: orange;
+      padding: 2px 5px;
+      font-size: 0.9em;
+      font-weight: bold;
+      border-top-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+    .quick-link-card img {
+      max-width: 100%;
+      height: 90px; 
+      object-fit: contain;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .quick-links-wrapper {
+      display: flex;
+      justify-content: center;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 2px;
+      padding: 5px 0;
+      margin: 0 auto;
+    }
+    
+    .sliders-container {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+      justify-content: center;
+    }
+    
+    #mainSlider {
+      width: 60%;
+      max-width: 800px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    #secondarySlider {
+      width: 35%;
+      max-width: 500px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .carousel-inner {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+    .carousel-item {
+      position: relative;
+      display: none;
+      float: left;
+      width: 100%;
+      margin-right: -100%;
+      backface-visibility: hidden;
+      transition: transform 0.6s ease-in-out;
+      border: 5px solid orange;
+      border-radius: 15px;
+    }
+    .carousel-item.active,
+    .carousel-item-next,
+    .carousel-item-prev {
+      display: block;
+    }
+    .carousel-item-next:not(.carousel-item-start),
+    .active.carousel-item-end {
+      transform: translateX(100%);
+    }
+    .carousel-item-prev:not(.carousel-item-end),
+    .active.carousel-item-start {
+      transform: translateX(-100%);
+    }
+    .carousel-item img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+    }
+    .carousel-caption {
+      color: black;
+      background-color: rgb(255, 166, 0);
+      border-radius: 20px;
+      padding: 15px 30px;
+      margin: 0 auto;
+      width: fit-content;
+      bottom: 30px;
+    }
+    .carousel-caption h5 {
+      font-size: 1.8em;
+      font-weight: bold;
+      margin: 0;
+    }
+    
+    #mainSlider .carousel-control-prev,
+    #mainSlider .carousel-control-next {
+      width: 40px;
+      height: 40px;
+      background-color: rgb(48, 48, 48);
+      border-radius: 50%;
+      position: absolute;
+      bottom: 20px;
+      top: auto;
+      transform: none;
+    }
+    #mainSlider .carousel-control-prev {
+      right: 70px;
+      left: auto;
+    }
+    #mainSlider .carousel-control-next {
+      right: 20px;
+    }
+    
+    #secondarySlider .carousel-control-prev,
+    #secondarySlider .carousel-control-next {
+      width: 40px;
+      height: 40px;
+      background-color: rgb(48, 48, 48);
+      border-radius: 50%;
+      position: absolute;
+      bottom: 15px;
+      top: auto;
+      transform: none;
+    }
+    #secondarySlider .carousel-control-prev {
+      right: 70px;
+      left: auto;
+    }
+    #secondarySlider .carousel-control-next {
+      right: 20px;
+    }
+    
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      width: 20px;
+      height: 20px;
+    }
+    
+    @media (max-width: 992px) {
+      .sliders-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      #mainSlider, #secondarySlider {
+        width: 90%;
+        max-width: 600px;
+        margin-bottom: 20px;
+      }
+    }
+    
+    .star {
+      color: gold;
+    }
+    .card {
+      border-radius: 30px;
+    }
+    .card-body {
+      position: relative;
+    }
+    .card-body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.8);
+      border: 2px solid orange;
+      border-radius: 30px;
+      z-index: -1;
+    }
+
+    .product-slider {
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 100px;
+    }
+    
+    .product-slider .card {
+      width: 220px;
+      flex-shrink: 0;
+      margin: 0 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    
+    
+    .product-wrapper {
+      display: flex;
+      gap: 5px;
+      padding: 10px;
+      overflow-x: scroll;
+      scroll-behavior: smooth;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .product-wrapper::-webkit-scrollbar {
+      display: none;
+    }
+
+    .product-slider .nav-button {
+      width: 40px;
+      height: 40px;
+      background-color: rgba(48, 48, 48, 0.5);
+      border-radius: 50%;
+      position: absolute;
+      justify-content: center;
+      align-items: center;
+      bottom: 60px;
+      transform: none;
+      border: none;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .product-slider .prev-button {
+      right: 60px;
+
+    }
+
+    .product-slider .next-button {
+      right: 10px;
+    }
+
+    .color-line {
+      display: flex;
+      width: 100%;
+      height: 4px;
+    }
+    
+    .color-line div {
+      flex: 1;
+    }
+    
+    .color-line-1 { background-color: #FF6000; }
+    .color-line-2 { background-color: #49C7ED; }
+    .color-line-3 { background-color: #7723DB; }
+    .color-line-4 { background-color: #57B900; }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light sticky-menu border-bottom">
+    <div class="container">
+      <a class="navbar-brand" href="#">E-Ticaret</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav" id="navbar-items"></ul>
+      </div>
+    </div>
+  </nav>
+
+  
+  <div class="color-line">
+    <div class="color-line-1"></div>
+    <div class="color-line-2"></div>
+    <div class="color-line-3"></div>
+    <div class="color-line-4"></div>
+  </div>
+
+
+  <div class="container my-3">
+    <div class="quick-links-wrapper" id="quick-links"></div>
+  </div>
+
+  <div class="container">
+    <div class="sliders-container">
+      <div id="mainSlider" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+        <div class="carousel-inner" id="slider-items"></div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#mainSlider" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#mainSlider" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
+      </div>
+      
+      <div id="secondarySlider" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+        <div class="carousel-inner" id="secondary-slider-items"></div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#secondarySlider" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#secondarySlider" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container my-5">
+    <h3>Sana Özel Öneriler</h3>
+    <div class="product-slider">
+        <button class="nav-button prev-button">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <div class="product-wrapper" id="ozel-oneriler"></div>
+        <button class="nav-button next-button">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+  </div>
+
+  <script>
+    const navbarAPI = 'https://run.mocky.io/v3/a0c121c7-628a-4cec-85b9-e10d708716ad';
+    const quickLinksAPI = 'https://run.mocky.io/v3/4e089443-e3e8-4dab-b35f-198c825df207';
+    const sliderAPI = 'https://run.mocky.io/v3/3cbed474-b85b-48c4-a939-3afc92e29efa';
+    const secondarySliderAPI = 'https://run.mocky.io/v3/1f4be9c2-655e-49bc-9600-cacb8286265f';
+    const productsAPI = 'https://run.mocky.io/v3/cae6bd6a-e537-499b-a711-52bdae75e823';
+
+    fetch(navbarAPI).then(res => res.json()).then(data => {
+      const navbar = document.getElementById('navbar-items');
+      data.forEach(item => {
+        if (item.submenu && item.submenu.length > 0) {
+          let dropdown = `<li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              ${item.title}
+            </a>
+            <ul class="dropdown-menu">`;
+          item.submenu.forEach(sub => {
+            dropdown += `<li><a class="dropdown-item" href="#">${sub}</a></li>`;
+          });
+          dropdown += '</ul></li>';
+          navbar.innerHTML += dropdown;
+        } else {
+          navbar.innerHTML += `<li class="nav-item"><a class="nav-link" href="#">${item.title}</a></li>`;
+        }
+      });
+    });
+
+    fetch(quickLinksAPI).then(res => res.json()).then(data => {
+      const container = document.getElementById('quick-links');
+      data.forEach(link => {
+        container.innerHTML += `
+          <div class='quick-link-card'>
+            <div class="label">FIRSAT</div>
+            <img src='${link.image}' alt='${link.title}'>
+            <div>${link.title}</div>
+          </div>`;
+      });
+    });
+
+    fetch(sliderAPI).then(res => res.json()).then(data => {
+      const container = document.getElementById('slider-items');
+      data.forEach((item, index) => {
+        container.innerHTML += `
+          <div class="carousel-item ${index === 0 ? 'active' : ''}">
+            <img src="${item.image}" alt="${item.title}" class="d-block w-100">
+            <div class="carousel-caption d-none d-md-block"><h5>${item.title}</h5></div>
+          </div>`;
+      });
+    });
+    
+    fetch(secondarySliderAPI).then(res => res.json()).then(data => {
+      const secondaryContainer = document.getElementById('secondary-slider-items');
+      data.forEach((item, index) => {
+        secondaryContainer.innerHTML += `
+          <div class="carousel-item ${index === 0 ? 'active' : ''}">
+            <img src="${item.image}" alt="${item.title}" class="d-block w-100">
+            <div class="carousel-caption d-none d-md-block"><h5>${item.title}</h5></div>
+          </div>`;
+      });
+    });
+
+    Promise.all([
+      fetch(sliderAPI).then(res => res.json()),
+      fetch(secondarySliderAPI).then(res => res.json())
+    ]).then(() => {
+      new bootstrap.Carousel(document.getElementById('mainSlider'), {
+        interval: 5000
+      });
+      new bootstrap.Carousel(document.getElementById('secondarySlider'), {
+        interval: 3000
+      });
+    });
+
+    fetch(productsAPI).then(res => res.json()).then(data => {
+      const container = document.getElementById('ozel-oneriler');
+      data.forEach(item => {
+        const stars = '★'.repeat(item.rating) + '☆'.repeat(5 - item.rating);
+        container.innerHTML += `
+          <div class="card">
+            <img src="${item.image}" class="card-img-top">
+            <div class="card-body">
+              <h5 class="card-title">${item.name}</h5>
+              <p class="card-text">${item.price} TL</p>
+              <div class="star">${stars}</div>
+            </div>
+          </div>`;
+      });
+
+      const wrapper = container;
+      const prevButton = wrapper.parentElement.querySelector('.prev-button');
+      const nextButton = wrapper.parentElement.querySelector('.next-button');
+      const cardWidth = 235;
+
+      prevButton.addEventListener('click', () => {
+        wrapper.scrollBy({
+          left: -cardWidth,
+          behavior: 'smooth'
+        });
+      });
+
+      nextButton.addEventListener('click', () => {
+        wrapper.scrollBy({
+          left: cardWidth,
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
